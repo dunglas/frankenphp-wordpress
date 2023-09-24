@@ -24,4 +24,4 @@ RUN sed -i \
     /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["frankenphp", "run", "--config", "/etc/Caddyfile"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]

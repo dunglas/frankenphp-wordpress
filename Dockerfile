@@ -29,3 +29,5 @@ RUN sed -i \
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+
+RUN pwd

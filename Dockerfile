@@ -13,15 +13,19 @@ RUN install-php-extensions \
 
 COPY --from=wordpress /usr/local/etc/php/conf.d/* /usr/local/etc/php/conf.d/
 COPY --from=wordpress /usr/local/bin/docker-entrypoint.sh /usr/local/bin/
-COPY --from=wordpress --chown=root:root /usr/src/wordpress /app/public
+COPY --from=wordpress --chown=root:root /usr/src/wordpress /usr/src/wordpress
 
-VOLUME /app/public
+WORKDIR /var/www/html
+VOLUME /var/www/html
 
 RUN sed -i \
     -e 's/\[ "$1" = '\''php-fpm'\'' \]/\[\[ "$1" == frankenphp* \]\]/g' \
     -e 's/php-fpm/frankenphp/g' \
-    -e 's#/usr/src/wordpress#/app/public#g' \
     /usr/local/bin/docker-entrypoint.sh
+
+RUN sed -i \
+    -e 's#root \* public/#root \* /var/www/html/#g' \
+    /etc/caddy/Caddyfile
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]

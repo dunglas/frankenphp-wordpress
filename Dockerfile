@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp
+FROM dunglas/frankenphp:latest-php8.2
 
 # install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
 RUN install-php-extensions \

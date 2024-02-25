@@ -19,8 +19,8 @@ WORKDIR /var/www/html
 VOLUME /var/www/html
 
 RUN sed -i \
-    -e 's/\[ "$1" = '\''php-fpm'\'' \]/\[\[ "$1" == frankenphp* \]\]/g' \
-    -e 's/php-fpm/frankenphp/g' \
+    -e 's/\[ "$1" = '\''php-fpm'\'' \]/\[\[ "$1" == su* \]\]/g' \
+    -e 's/php-fpm/su/g' \
     /usr/local/bin/docker-entrypoint.sh
 
 RUN sed -i \

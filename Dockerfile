@@ -27,5 +27,8 @@ RUN sed -i \
     -e 's#root \* public/#root \* /var/www/html/#g' \
     /etc/caddy/Caddyfile
 
+RUN echo "frankenphp run --config /etc/caddy/Caddyfile" > /start.sh; \
+    chown -R www-data:www-data /data/caddy
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+CMD ["su", "-s", "/bin/sh", "www-data", "/start.sh"]

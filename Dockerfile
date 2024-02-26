@@ -18,17 +18,18 @@ COPY --from=wordpress --chown=root:root /usr/src/wordpress /usr/src/wordpress
 WORKDIR /var/www/html
 VOLUME /var/www/html
 
+ARG USER=www-data
+RUN chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy
+
 RUN sed -i \
-    -e 's/\[ "$1" = '\''php-fpm'\'' \]/\[\[ "$1" == su* \]\]/g' \
-    -e 's/php-fpm/su/g' \
+    -e 's/\[ "$1" = '\''php-fpm'\'' \]/\[\[ "$1" == frankenphp* \]\]/g' \
+    -e 's/php-fpm/frankenphp/g' \
     /usr/local/bin/docker-entrypoint.sh
 
 RUN sed -i \
     -e 's#root \* public/#root \* /var/www/html/#g' \
     /etc/caddy/Caddyfile
 
-RUN echo "frankenphp run --config /etc/caddy/Caddyfile" > /start.sh; \
-    chown -R www-data:www-data /data/caddy
-
+USER ${USER}
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["su", "-s", "/bin/sh", "www-data", "/start.sh"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]

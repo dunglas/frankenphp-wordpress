@@ -1,5 +1,9 @@
 # WordPress on FrankenPHP
 
+> [!CAUTION]
+> This repository has been deprecated in favor of [FrankenWP](https://github.com/StephenMiracle/frankenwp),
+> an enterprise-grade WordPress image built using FrankenPHP.
+
 Run the popular [WordPress CMS](https://wordpress.org) on top of [FrankenPHP](https://frankenphp.dev),
 the modern app server for PHP.
 
